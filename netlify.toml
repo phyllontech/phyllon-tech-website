@@ -6,9 +6,8 @@
   directory = "netlify/functions"
 
 [dev]
-  command = "npm run dev"
   publish = "."
-  port = 3000
+  port = 8888
 
 [[redirects]]
   from = "/api/*"

@@ -1,0 +1,31 @@
+.typing-indicator span {
+    animation: typing 1.4s infinite both;
+}
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+@keyframes typing {
+    0%, 60%, 100% {
+    transform: translateY(0);
+    }
+    30% {
+    transform: translateY(-4px);
+    }
+}
+.chat-messages {
+    scrollbar-width: thin;
+    scrollbar-color: #2d85cd transparent;
+}
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: #2d85cd;
+    border-radius: 3px;
+}

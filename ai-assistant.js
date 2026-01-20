@@ -24,7 +24,7 @@ let isLoading = false;
 // Initialize with welcome message
 const welcomeMessage = {
     role: 'assistant',
-    content: 'Hello! 👋 How may I help you today? I\'m here to assist you with any questions you might have.',
+    content: 'Welcome to Phyllon Tech. I\'m here to assist you with any questions you might have.',
     timestamp: new Date()
 };
 messages.push(welcomeMessage);

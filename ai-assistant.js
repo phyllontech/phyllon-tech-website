@@ -1,12 +1,6 @@
 
 // Configuration
-const DEEPINFRA_API_KEY = import.meta.env.VITE_DEEPINFRA_API_KEY || 
-                          localStorage.getItem('DEEPINFRA_API_KEY') || 
-                          '';
-const DEEPINFRA_API_URL = import.meta.env.VITE_DEEPINFRA_API_URL || 
-                          'https://api.deepinfra.com/v1/openai/chat/completions';
-const MODEL = import.meta.env.VITE_MODEL || 
-              'meta-llama/Meta-Llama-3-8B-Instruct';
+const CHAT_API_URL = '/.netlify/functions/chat-proxy';
 
 // DOM Elements
 const chatbotButton = document.getElementById('chatbotButton');
@@ -168,23 +162,13 @@ async function sendToAPI(userMessage) {
     }));
 
     try {
-    const response = await fetch(DEEPINFRA_API_URL, {
+    const response = await fetch(CHAT_API_URL, {
         method: 'POST',
         headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${DEEPINFRA_API_KEY}`
+        'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-        model: MODEL,
-        messages: [
-            {
-            role: 'system',
-            content: 'You are Phyllon Tech\'s AI assistant. Phyllon Tech provides AI-powered business automation and web development services.\n\nOur services include:\n1. Business Website Development - Clean, fast, mobile-responsive websites with contact forms, WhatsApp integration, and SEO optimization\n2. 24/7 WhatsApp AI Receptionist - Automated customer responses, CRM integration, conversation analytics, and seamless human handoff\n3. Custom Business Dashboard - Secure role-based access, data management panels, analytics, and custom features\n4. AI Voice Agent - Automated call handling, lead qualification, CRM/WhatsApp handoff, 100+ languages supported\n\nContact: WhatsApp +91-8097137041, Email: phyllontechofficial@gmail.com\nWebsite: phyllontech.com\n\nBenefits: Fast delivery, ongoing support, custom solutions, 24/7 automation\nBe professional yet approachable. Focus on how our solutions help businesses grow and save time. For pricing or specific implementation details, direct customers to contact us via WhatsApp or email.'
-            },
-            ...conversationHistory
-        ],
-        max_tokens: 500,
-        temperature: 0.7
+        messages: conversationHistory
         })
     });
 
@@ -193,7 +177,7 @@ async function sendToAPI(userMessage) {
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    return data.content;
     } catch (error) {
     console.error('API Error:', error);
     return 'I apologize, but I\'m having trouble connecting right now. Please try again in a moment.';

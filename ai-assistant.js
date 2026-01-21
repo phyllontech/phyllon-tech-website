@@ -54,8 +54,12 @@ function toggleChat() {
     // Render messages
     renderMessages();
     
-    // Focus input
-    setTimeout(() => messageInput.focus(), 300);
+    // Focus input (only on non-mobile screens)
+    setTimeout(() => {
+        if (window.innerWidth >= 768) {
+            messageInput.focus();
+        }
+    }, 300);
     } else {
     chatModal.classList.add('scale-95', 'opacity-0');
     chatModal.classList.remove('scale-100', 'opacity-100');

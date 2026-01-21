@@ -239,6 +239,21 @@
       transform: translateX(0);
     }
 
+    .services-slide-up {
+      animation: slideUp 0.6s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
   </style>
 
   <link rel="stylesheet" href="ai-assistant.css">
@@ -432,10 +447,10 @@
     </section>
     <!-- Services Header -->
     <section class="w-full px-6 py-12 bg-gradient-to-b from-white dark:from-black to-[#005fff10]" id="services">
-      <div class="mx-auto max-w-7xl">
+      <div class="opacity-0 mx-auto max-w-7xl">
         <div class="flex flex-col gap-2 mb-12">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-[#0f151a] dark:text-white sm:text-4xl">Our Services</h2>
-          <p class="text-md md:text-lg text-gray-500 dark:text-gray-400">Solutions built for modern businesses.
+          <h2 class="text-xl md:text-3xl font-bold tracking-tight text-[#0f151a] dark:text-white sm:text-4xl">Our Services</h2>
+          <p class="text-sm md:text-lg text-gray-500 dark:text-gray-400">Solutions built for modern businesses.
           </p>
         </div>
         <!-- Services Grid -->
@@ -607,6 +622,16 @@
               el.classList.add('animated');
             });
           }, 300);
+
+          setTimeout(() => {
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+              const firstDiv = servicesSection.querySelector(':scope > div');
+              if (firstDiv) {
+                firstDiv.classList.add('services-slide-up');
+              }
+            }
+          }, 800);
         }, 300);
       }
 

@@ -115,32 +115,6 @@
       }
     }
 
-    #services p {
-      font-size: medium;
-    }
-
-    #services h3 {
-      font-size: larger;
-    }
-
-    #services li {
-      font-size: small;
-    }
-
-    @media (min-width: 768px) {
-      #services p {
-        font-size: large;
-      }
-
-      #services h3 {
-        font-size: x-large;
-      }
-
-      #services li {
-        font-size: medium;
-      }
-    }
-
     /* Particle effect */
     .particle {
       position: absolute;
@@ -254,6 +228,27 @@
       }
     }
 
+    /* Horizontal scroll for individual pricing cards on mobile */
+    @media (max-width: 639px) {
+      #pricing .individual-services-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+
+        /* padding-left: 1.5rem; */
+        padding-right: 1.5rem;
+        scroll-padding-left: 1.5rem;
+      }
+
+      #pricing .individual-services-grid > div {
+        flex: 0 0 80%;
+        max-width: 80%;
+        scroll-snap-align: start;
+      }
+    }
+
   </style>
 
   <link rel="stylesheet" href="ai-assistant.css">
@@ -346,10 +341,12 @@
       </div>
     </a>
       <nav
-        class="hidden md:flex items-center gap-8 absolute top-full left-0 right-0 bg-white dark:bg-[#121a20]/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 md:relative md:top-auto md:left-auto md:right-auto md:bg-transparent md:border-none md:backdrop-blur-none flex-col md:flex-row p-4 md:p-0 space-y-4 md:space-y-0"
+        class="hidden md:flex items-center gap-8 absolute top-full left-0 right-0 bg-white dark:bg-background-dark/95 border-b-2 dark:border-b-0 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 md:relative md:top-auto md:left-auto md:right-auto md:bg-transparent md:border-none md:backdrop-blur-none flex-col md:flex-row p-4 md:p-0 space-y-4 md:space-y-0"
         id="main-nav">
         <a class="text-sm font-medium hover:text-primary transition-colors block py-2 md:py-0"
           href="#services">Services</a>
+        <a class="text-sm font-medium hover:text-primary transition-colors block py-2 md:py-0"
+          href="#pricing">Pricing</a>
         <a class="text-sm font-medium hover:text-primary transition-colors block py-2 md:py-0"
           href="#contact">Contact</a>
       </nav>
@@ -400,7 +397,7 @@
       <div class="mx-auto max-w-7xl">
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
           <div class="flex flex-col gap-6">
-            <h1 class="hero-animate hero-animate-delay-1 font-black leading-tight tracking-tight text-[#0f151a] dark:text-white text-[2rem] lg:text-6xl">
+            <h1 class="hero-animate hero-animate-delay-1 font-black leading-tight tracking-tight text-[#0f151a] dark:text-white text-[2.5rem] lg:text-6xl">
               Your business,
               <span class="bg-gradient-to-r from-blue-600 via-sky-300 to-blue-600 bg-clip-text text-transparent"
                 style="background-size: 200% 100%; animation: shimmer 6s infinite;">always on.</span>
@@ -445,11 +442,11 @@
         </div>
       </div>
     </section>
-    <!-- Services Header -->
-    <section class="w-full px-6 py-12 bg-gradient-to-b from-white dark:from-black to-[#005fff10]" id="services">
+    <!-- Services -->
+    <section class="w-full px-6 py-12 bg-gradient-to-b from-white dark:from-black to-primary/10" id="services">
       <div class="opacity-0 mx-auto max-w-7xl">
         <div class="flex flex-col gap-2 mb-12">
-          <h2 class="text-xl md:text-3xl font-bold tracking-tight text-[#0f151a] dark:text-white sm:text-4xl">Our Services</h2>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-[#0f151a] dark:text-white sm:text-4xl">Our Services</h2>
           <p class="text-sm md:text-lg text-gray-500 dark:text-gray-400">Solutions built for modern businesses.
           </p>
         </div>
@@ -459,8 +456,200 @@
         </div>
       </div>
     </section>
+    <!-- Pricing Section -->
+    <section class="w-full px-6 py-12 bg-gradient-to-b from-primary/10 to-white dark:to-black" id="pricing">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex flex-col gap-2 mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-[#0f151a] dark:text-white sm:text-4xl">Pricing</h2>
+          <p class="text-sm md:text-lg text-gray-500 dark:text-gray-400">Simple, upfront pricing with bundle discounts.</p>
+        </div>
+        
+        <!-- Individual Services -->
+        <div class="mb-16">
+          <!-- <h3 class="text-lg md:text-xl font-semibold text-[#0f151a] dark:text-white mb-6">Individual Services</h3> -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 individual-services-grid">
+            <!-- Website -->
+            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
+              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">Website</h4>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Single-page responsive website</p>
+              <div class="mb-4">
+                <span class="text-2xl font-black">₹2,000</span>
+              </div>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Website service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+
+            <!-- WhatsApp Chatbot -->
+            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
+              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">WhatsApp Chatbot</h4>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">24/7 automated customer interaction</p>
+              <div class="mb-4 space-y-1">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-xl font-black">₹2,000</span>
+                  <span class="text-xs text-gray-500">/ 3 mo</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-xl font-black">₹3,000</span>
+                  <span class="text-xs text-gray-500">/ 6 mo</span>
+                </div>
+              </div>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the WhatsApp Chatbot service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+
+            <!-- Business Dashboard -->
+            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
+              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">Business Dashboard</h4>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Centralized data and operations</p>
+              <div class="mb-4">
+                <span class="text-2xl font-black">₹5,000</span>
+              </div>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Business Dashboard service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+
+            <!-- AI Voice Agent -->
+            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
+              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">AI Voice Agent</h4>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Automated inbound call handling</p>
+              <div class="mb-4">
+                <span class="text-2xl font-black">Contact Us</span>
+              </div>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the AI Voice Agent service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bundle Packages -->
+        <div class="mb-12">
+          <h3 class="text-lg md:text-xl font-semibold text-[#0f151a] dark:text-white mb-6">Bundle & Save</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            <!-- Starter Bundle -->
+            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg">
+              <div class="mb-2 text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Starter Bundle</div>
+              <div class="mb-4">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-lg font-bold text-gray-400 line-through">₹4,000</span>
+                  <span class="text-3xl font-black text-primary">₹3,500</span>
+                </div>
+                <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹500</p>
+              </div>
+              <ul class="mb-6 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>Website</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>WhatsApp Chatbot (3 mo)</span>
+                </li>
+              </ul>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Starter Bundle" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+
+            <!-- Growth Bundle -->
+            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg">
+              <div class="mb-2 text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Growth Bundle</div>
+              <div class="mb-4">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-lg font-bold text-gray-400 line-through">₹5,000</span>
+                  <span class="text-3xl font-black text-primary">₹4,300</span>
+                </div>
+                <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹700</p>
+              </div>
+              <ul class="mb-6 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>Website</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>WhatsApp Chatbot (6 mo)</span>
+                </li>
+              </ul>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Growth Bundle" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+
+            <!-- Business Bundle -->
+            <div class="relative flex flex-col rounded-xl border-2 border-primary bg-primary/5 dark:bg-primary/10 p-6 transition-all hover:shadow-xl">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center px-3 py-1 rounded-full bg-accent text-white text-xs font-bold uppercase tracking-wide">Most Popular</div>
+              <div class="mb-2 text-sm font-semibold text-primary uppercase tracking-wide">Business Bundle</div>
+              <div class="mb-4">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-lg font-bold text-gray-400 line-through">₹10,000</span>
+                  <span class="text-3xl font-black text-primary">₹8,500</span>
+                </div>
+                <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹1,500</p>
+              </div>
+              <ul class="mb-6 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>Website</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>WhatsApp Chatbot (6 mo)</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>Business Dashboard</span>
+                </li>
+              </ul>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Business Bundle" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+
+            <!-- Automation Pro Bundle -->
+            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg">
+              <div class="mb-2 text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Automation Pro Bundle</div>
+              <div class="mb-4">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-lg font-bold text-gray-400 line-through">₹13,000</span>
+                  <span class="text-3xl font-black text-primary">₹10,500</span>
+                </div>
+                <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹2,500</p>
+              </div>
+              <ul class="mb-6 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>Website</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>WhatsApp Chatbot (12 mo)</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+                  <span>Business Dashboard</span>
+                </li>
+              </ul>
+              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Automation Pro Bundle" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Not Sure CTA -->
+        <div class="text-center">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Not sure which plan fits your business?</p>
+          <button onclick="document.getElementById('chatbotButton').click()" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+            <span>Chat with us to find the right solution</span>
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </section>
     <!-- CTA Section -->
-    <section class="py-12 sm:py-20 px-4 sm:px-6 bg-white dark:bg-black">
+    <section class="relative py-12 sm:py-20 px-4 sm:px-6 bg-white dark:bg-black">
+      <div class="absolute inset-0 -z-5 pointer-events-none">
+        <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 60%; left: 80%; animation-delay: -2s;"></div>
+        <div class="particle" style="top: 40%; left: 60%; animation-delay: -4s;"></div>
+        <div class="particle" style="top: 80%; left: 30%; animation-delay: -6s;"></div>
+        <div class="particle" style="top: 10%; left: 70%; animation-delay: -1s;"></div>
+        <div class="particle hidden md:block" style="top: 50%; left: 15%; animation-delay: -3s;"></div>
+        <div class="particle hidden md:block" style="top: 25%; left: 90%; animation-delay: -5s;"></div>
+        <div class="particle hidden md:block" style="top: 70%; left: 50%; animation-delay: -2s;"></div>
+        <div class="particle hidden md:block" style="top: 15%; left: 40%; animation-delay: -4s;"></div>
+        <div class="particle hidden md:block" style="top: 60%; left: 20%; animation-delay: -6s;"></div>
+        <div class="particle hidden md:block" style="top: 30%; left: 75%; animation-delay: -1s;"></div>
+        <div class="particle hidden md:block" style="top: 85%; left: 10%; animation-delay: -3s;"></div>
+      </div>
       <div
         class="mx-auto max-w-5xl overflow-hidden rounded-xl sm:rounded-2xl bg-[#121a20] px-4 md:px-16 py-10 md:py-14 shadow-2xl text-center">
         <h2

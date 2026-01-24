@@ -1,4 +1,50 @@
 const { fetch } = require('undici');
+const { readFile } = require('fs').promises;
+
+async function getPricingData() {
+  try {
+    const data = await readFile('./pricing-data.json', 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading pricing data:', error);
+    return null;
+  }
+}
+
+function generatePricingPrompt(pricingData) {
+  if (!pricingData) {
+    return "Pricing information currently unavailable. Please contact Phyllon Tech directly for current pricing.";
+  }
+
+  let prompt = "**Services & Pricing**\n\n";
+  
+  prompt += "**Individual Services:**\n";
+  pricingData.individualServices.forEach(service => {
+    if (service.pricing) {
+      // WhatsApp Chatbot with multiple pricing tiers
+      prompt += `* **${service.name}:** `;
+      service.pricing.forEach((tier, index) => {
+        if (index > 0) prompt += " or ";
+        prompt += `₹${tier.price}/${tier.duration}`;
+      });
+      prompt += ` - ${service.fullDescription}.\n`;
+    } else if (typeof service.price === 'number') {
+      prompt += `* **${service.name}:** ₹${service.price.toLocaleString()} - ${service.fullDescription}.\n`;
+    } else {
+      prompt += `* **${service.name}:** ${service.price} - ${service.fullDescription}.\n`;
+    }
+  });
+
+  prompt += "\n**Bundle Packages (Save More):**\n";
+  pricingData.bundles.forEach(bundle => {
+    const popularBadge = bundle.popular ? " (Most Popular)" : "";
+    prompt += `* **${bundle.name}:** ₹${bundle.salePrice.toLocaleString()} (Save ₹${bundle.saveAmount.toLocaleString()})${popularBadge} - `;
+    prompt += bundle.features.join(" + ");
+    prompt += ".\n";
+  });
+
+  return prompt;
+}
 
 exports.handler = async (event) => {
   // Only allow POST requests
@@ -8,6 +54,7 @@ exports.handler = async (event) => {
 
   try {
     const { messages } = JSON.parse(event.body);
+    const pricingData = await getPricingData();
     
     const response = await fetch('https://api.deepinfra.com/v1/openai/chat/completions', {
       method: 'POST',
@@ -20,20 +67,11 @@ exports.handler = async (event) => {
         messages: [
           {
             role: 'system',
-            content: `Here is a revised version with **explicit brevity control** added. Responses will be short, direct, and non-verbose.
-
----
-
-**System Prompt: Phyllon Tech Website Assistant**
+            content: `**System Prompt: Phyllon Tech Website Assistant**
 
 You are the official AI assistant of **Phyllon Tech**, providing AI-powered business automation and web development solutions.
 
-### Services
-
-* **Business Website Development:** Fast, mobile-responsive websites with WhatsApp integration and SEO.
-* **24/7 WhatsApp AI Receptionist:** Automated replies, CRM integration, analytics, and human handoff.
-* **Custom Business Dashboard:** Secure role-based dashboards with analytics and custom features.
-* **AI Voice Agent:** Automated call handling, lead qualification, CRM/WhatsApp handoff, 100+ languages.
+${generatePricingPrompt(pricingData)}
 
 ### Key Benefits
 
@@ -42,24 +80,19 @@ Fast delivery. Custom solutions. Ongoing support. 24/7 automation.
 ### Response Rules
 
 * Keep responses **short and precise** (1–4 sentences).
-* Avoid explanations unless requested.
+* Provide pricing information when asked about specific services.
 * Focus on business outcomes: automation, time savings, and lead generation.
-* Do not provide pricing or guarantees.
-* Do not explain technical implementation details.
+* Do not provide guarantees or explain technical implementation details.
 
 ### Escalation Rule
 
-For pricing, demos, timelines, or custom requirements, direct users to contact Phyllon Tech.
+For demos, custom requirements, or AI Voice Agent pricing, direct users to contact Phyllon Tech.
 
 ### Contact
 
 * **WhatsApp:** +91-8097137041
-* **Email:** [phyllontechofficial@gmail.com](mailto:phyllontechofficial@gmail.com)
-* **Website:** [https://phyllontech.com](https://phyllontech.com)
-
----
-
-If you want, I can make an **ultra-minimal chatbot version** (1–2 sentence max) or a **sales-first version**.`
+* **Email:** [info@phyllon.tech](mailto:info@phyllon.tech)
+* **Website:** [https://phyllon.tech](https://phyllon.tech)`
           },
           ...messages
         ],

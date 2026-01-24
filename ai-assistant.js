@@ -1,6 +1,11 @@
 
 // Configuration
 const CHAT_API_URL = '/.netlify/functions/chat-proxy';
+const SHEETS_API_URL = '/.netlify/functions/sheets-proxy';
+
+// Generate unique session ID
+let sessionId = localStorage.getItem('chatSessionId') || 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+localStorage.setItem('chatSessionId', sessionId);
 
 // DOM Elements
 const chatbotButton = document.getElementById('chatbotButton');
@@ -158,6 +163,35 @@ function hideTyping() {
     typingIndicator.classList.add('hidden');
 }
 
+// Send conversation data to Google Sheets
+async function sendToSheets(userMessage, aiResponse) {
+    try {
+        const response = await fetch(SHEETS_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                timestamp: new Date().toISOString(),
+                userMessage: userMessage,
+                aiResponse: aiResponse,
+                sessionId: sessionId,
+                userAgent: navigator.userAgent
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Sheets API request failed');
+        }
+
+        const data = await response.json();
+        console.log('Sheets API Success:', data);
+    } catch (error) {
+        console.error('Sheets API Error:', error);
+        // Don't fail the chat if sheets logging fails
+    }
+}
+
 // Send message to DeepInfra API
 async function sendToAPI(userMessage) {
     const conversationHistory = messages.map(msg => ({
@@ -228,6 +262,9 @@ async function handleSubmit(e) {
     timestamp: new Date()
     };
     messages.push(assistantMessage);
+    
+    // Send conversation data to Google Sheets (async, don't wait)
+    sendToSheets(content, aiResponse);
     
     // Update unread if chat is closed
     if (!isOpen) {

@@ -266,7 +266,7 @@
     "telephone": "+91-8097137041",
     "contactType": "customer service",
     "url": "https://wa.me/918097137041",
-    "email": "phyllontechofficial@gmail.com"
+    "email": "info@phyllon.tech"
   },
   "sameAs": [
     "https://www.instagram.com/phyllon.tech.official/"
@@ -629,7 +629,7 @@
               </g>
             </svg>
           </a>
-          <a class="text-gray-400 hover:text-primary" href="mailto:phyllontechofficial@gmail.com">
+          <a class="text-gray-400 hover:text-primary" href="mailto:info@phyllon.tech">
             <span class="sr-only">Email</span>
             <span class="material-symbols-outlined">mail</span>
           </a>
@@ -648,7 +648,7 @@
               © 2025 Phyllon Tech. All rights reserved.
             </p>
             <p class="text-center text-xs leading-5 text-gray-500 md:text-left mt-1">
-              phyllontechofficial@gmail.com
+              info@phyllon.tech
             </p>
           </div>
         </div>
@@ -768,6 +768,7 @@
       const popularBadge = bundle.popular ? `<div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center px-3 py-1 rounded-full bg-accent text-white text-xs font-bold uppercase tracking-wide">Most Popular</div>` : '';
       const labelColor = bundle.popular ? 'text-primary' : 'text-gray-500 dark:text-gray-400';
       const borderClass = bundle.popular ? 'border-2 border-primary bg-primary/5 dark:bg-primary/10 hover:shadow-xl' : 'border border-gray-200 dark:border-gray-700 hover:shadow-lg';
+      const saveAmount = bundle.originalPrice - bundle.salePrice;
 
       return `
         <div class="relative flex flex-col rounded-xl ${borderClass} bg-background-light dark:bg-[#1a242b] p-6 transition-all">
@@ -778,7 +779,7 @@
               <span class="text-lg font-bold text-gray-400 line-through">₹${bundle.originalPrice.toLocaleString()}</span>
               <span class="text-3xl font-black text-primary">₹${bundle.salePrice.toLocaleString()}</span>
             </div>
-            <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹${bundle.saveAmount.toLocaleString()}</p>
+            <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹${saveAmount.toLocaleString()}</p>
           </div>
           <ul class="mb-6 space-y-2 text-sm text-gray-600 dark:text-gray-300">
             ${bundle.features.map(feature => `
@@ -852,7 +853,6 @@
         name: 'Starter Bundle',
         originalPrice: 4000,
         salePrice: 3500,
-        saveAmount: 500,
         popular: false,
         features: ['Website', 'WhatsApp Chatbot (3 mo)']
       },
@@ -860,23 +860,20 @@
         name: 'Growth Bundle',
         originalPrice: 5000,
         salePrice: 4300,
-        saveAmount: 700,
         popular: false,
         features: ['Website', 'WhatsApp Chatbot (6 mo)']
       },
       {
         name: 'Business Bundle',
         originalPrice: 10000,
-        salePrice: 8500,
-        saveAmount: 1500,
+        salePrice: 8000,
         popular: true,
         features: ['Website', 'WhatsApp Chatbot (6 mo)', 'Business Dashboard']
       },
       {
         name: 'Automation Pro Bundle',
         originalPrice: 13000,
-        salePrice: 10500,
-        saveAmount: 2500,
+        salePrice: 10000,
         popular: false,
         features: ['Website', 'WhatsApp Chatbot (12 mo)', 'Business Dashboard']
       }

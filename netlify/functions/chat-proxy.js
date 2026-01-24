@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const { fetch } = require('undici');
 
 exports.handler = async (event) => {
   // Only allow POST requests

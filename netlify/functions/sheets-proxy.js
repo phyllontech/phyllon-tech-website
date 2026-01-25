@@ -68,7 +68,14 @@ exports.handler = async (event) => {
     });
 
     console.log('Creating GoogleSpreadsheet instance...');
-    const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
+    const doc = new GoogleSpreadsheet(sheetId);
+    
+    // Authenticate with the document
+    console.log('Authenticating...');
+    await doc.useServiceAccountAuth({
+        client_email: email,
+        private_key: privateKey.replace(/\\n/g, '\n').replace(/\\\\n/g, '\\n'),
+    });
 
     // Load document info and worksheets
     console.log('Loading document info...');

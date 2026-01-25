@@ -185,10 +185,8 @@ async function sendToSheets(userMessage, aiResponse) {
         }
 
         const data = await response.json();
-        console.log('Sheets API Success:', data);
     } catch (error) {
         console.error('Sheets API Error:', error);
-        // Don't fail the chat if sheets logging fails
     }
 }
 

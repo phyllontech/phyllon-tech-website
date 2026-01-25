@@ -3,7 +3,7 @@ const { readFile } = require('fs').promises;
 
 async function getPricingData() {
   try {
-    const data = await readFile('./pricing-data.json', 'utf8');
+    const data = await readFile('./netlify/functions/pricing-data.json', 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.error('Error reading pricing data:', error);

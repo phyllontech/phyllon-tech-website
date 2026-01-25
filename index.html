@@ -468,52 +468,7 @@
         <div class="mb-16">
           <!-- <h3 class="text-lg md:text-xl font-semibold text-[#0f151a] dark:text-white mb-6">Individual Services</h3> -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 individual-services-grid">
-            <!-- Website -->
-            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
-              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">Website</h4>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Single-page responsive website</p>
-              <div class="mb-4">
-                <span class="text-2xl font-black">₹2,000</span>
-              </div>
-              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Website service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
-            </div>
-
-            <!-- WhatsApp Chatbot -->
-            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
-              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">WhatsApp Chatbot</h4>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">24/7 automated customer interaction</p>
-              <div class="mb-4 space-y-1">
-                <div class="flex items-baseline gap-2">
-                  <span class="text-xl font-black">₹2,000</span>
-                  <span class="text-xs text-gray-500">/ 3 mo</span>
-                </div>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-xl font-black">₹3,000</span>
-                  <span class="text-xs text-gray-500">/ 6 mo</span>
-                </div>
-              </div>
-              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the WhatsApp Chatbot service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
-            </div>
-
-            <!-- Business Dashboard -->
-            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
-              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">Business Dashboard</h4>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Centralized data and operations</p>
-              <div class="mb-4">
-                <span class="text-2xl font-black">₹5,000</span>
-              </div>
-              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the Business Dashboard service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
-            </div>
-
-            <!-- AI Voice Agent -->
-            <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
-              <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">AI Voice Agent</h4>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Automated inbound call handling</p>
-              <div class="mb-4">
-                <span class="text-2xl font-black">Contact Us</span>
-              </div>
-              <a href="https://wa.me/918097137041?text=Hi, I'm interested in the AI Voice Agent service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
-            </div>
+            <!-- Services will be loaded dynamically from pricing API -->
           </div>
         </div>
 
@@ -521,6 +476,7 @@
         <div class="mb-12">
           <h3 class="text-lg md:text-xl font-semibold text-[#0f151a] dark:text-white mb-6">Bundle & Save</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            <!-- Bundles will be loaded dynamically from pricing API -->
           </div>
         </div>
 
@@ -764,6 +720,35 @@
       `;
     }
 
+    function createIndividualServiceCard(service) {
+      let pricingHtml = '';
+      
+      if (service.pricing) {
+        // WhatsApp Chatbot with multiple pricing tiers
+        pricingHtml = service.pricing.map(tier => `
+          <div class="flex items-baseline gap-2">
+            <span class="text-xl font-black">₹${tier.price}</span>
+            <span class="text-xs text-gray-500">/ ${tier.duration}</span>
+          </div>
+        `).join('');
+      } else if (typeof service.price === 'number') {
+        pricingHtml = `<span class="text-2xl font-black">₹${service.price.toLocaleString()}</span>`;
+      } else {
+        pricingHtml = `<span class="text-2xl font-black">${service.price}</span>`;
+      }
+
+      return `
+        <div class="flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-[#1a242b] p-6 transition-all hover:shadow-lg hover:border-primary/50">
+          <h4 class="mb-1 text-lg font-bold text-[#0f151a] dark:text-white">${service.name}</h4>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">${service.description}</p>
+          <div class="mb-4 ${service.pricing ? 'space-y-1' : ''}">
+            ${pricingHtml}
+          </div>
+          <a href="https://wa.me/918097137041?text=Hi, I'm interested in the ${service.name} service" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
+        </div>
+      `;
+    }
+
     function createBundleCard(bundle) {
       const popularBadge = bundle.popular ? `<div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center px-3 py-1 rounded-full bg-accent text-white text-xs font-bold uppercase tracking-wide">Most Popular</div>` : '';
       const labelColor = bundle.popular ? 'text-primary' : 'text-gray-500 dark:text-gray-400';
@@ -779,7 +764,7 @@
               <span class="text-lg font-bold text-gray-400 line-through">₹${bundle.originalPrice.toLocaleString()}</span>
               <span class="text-3xl font-black text-primary">₹${bundle.salePrice.toLocaleString()}</span>
             </div>
-            <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹${saveAmount.toLocaleString()}</p>
+            <p class="text-xs text-green-600 dark:text-green-400 font-semibold">Save ₹${bundle.saveAmount.toLocaleString()}</p>
           </div>
           <ul class="mb-6 space-y-2 text-sm text-gray-600 dark:text-gray-300">
             ${bundle.features.map(feature => `
@@ -792,6 +777,35 @@
           <a href="https://wa.me/918097137041?text=Hi, I'm interested in the ${bundle.name}" target="_blank" class="mt-auto w-full inline-flex items-center justify-center h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Get Started</a>
         </div>
       `;
+    }
+
+    async function loadPricingData() {
+      try {
+        const response = await fetch('/.netlify/functions/pricing');
+        const data = await response.json();
+        
+        // Update individual services
+        updateIndividualServices(data.individualServices);
+        
+        // Update bundles
+        updateBundles(data.bundles);
+      } catch (error) {
+        console.error('Error loading pricing:', error);
+      }
+    }
+
+    function updateIndividualServices(services) {
+      const individualServicesGrid = document.querySelector('#pricing .individual-services-grid');
+      if (individualServicesGrid) {
+        individualServicesGrid.innerHTML = services.map(service => createIndividualServiceCard(service)).join('');
+      }
+    }
+
+    function updateBundles(bundles) {
+      const bundlesGrid = document.querySelector('#pricing .mb-12 > .grid');
+      if (bundlesGrid) {
+        bundlesGrid.innerHTML = bundles.map(bundle => createBundleCard(bundle)).join('');
+      }
     }
 
     const services = [
@@ -848,36 +862,7 @@
       },
     ]
 
-    const bundles = [
-      {
-        name: 'Starter Bundle',
-        originalPrice: 4000,
-        salePrice: 3500,
-        popular: false,
-        features: ['Website', 'WhatsApp Chatbot (3 mo)']
-      },
-      {
-        name: 'Growth Bundle',
-        originalPrice: 5000,
-        salePrice: 4300,
-        popular: false,
-        features: ['Website', 'WhatsApp Chatbot (6 mo)']
-      },
-      {
-        name: 'Business Bundle',
-        originalPrice: 10000,
-        salePrice: 8000,
-        popular: true,
-        features: ['Website', 'WhatsApp Chatbot (6 mo)', 'Business Dashboard']
-      },
-      {
-        name: 'Automation Pro Bundle',
-        originalPrice: 13000,
-        salePrice: 10000,
-        popular: false,
-        features: ['Website', 'WhatsApp Chatbot (12 mo)', 'Business Dashboard']
-      }
-    ]
+    // Bundles are now loaded dynamically from pricing API
 
     // Generate and render service cards
     document.addEventListener('DOMContentLoaded', function() {
@@ -889,10 +874,8 @@
         servicesGrid.innerHTML = services.map(service => createServiceCard(service)).join('');
       }
 
-      const bundlesGrid = document.querySelector('#pricing .mb-12 > .grid');
-      if (bundlesGrid) {
-        bundlesGrid.innerHTML = bundles.map(bundle => createBundleCard(bundle)).join('');
-      }
+      // Load pricing data dynamically
+      loadPricingData();
     });
 
     // Reset scroll position on page load

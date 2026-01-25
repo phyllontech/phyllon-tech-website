@@ -1,12 +1,14 @@
 const { fetch } = require('undici');
-const { readFile } = require('fs').promises;
 
 async function getPricingData() {
   try {
-    const data = await readFile('./netlify/functions/pricing-data.json', 'utf8');
-    return JSON.parse(data);
+    const response = await fetch(`${process.env.URL}/.netlify/functions/pricing`);
+    if (!response.ok) {
+      throw new Error('Pricing API request failed');
+    }
+    return await response.json();
   } catch (error) {
-    console.error('Error reading pricing data:', error);
+    console.error('Error fetching pricing data:', error);
     return null;
   }
 }
@@ -83,6 +85,7 @@ Fast delivery. Custom solutions. Ongoing support. 24/7 automation.
 * Provide pricing information when asked about specific services.
 * Focus on business outcomes: automation, time savings, and lead generation.
 * Do not provide guarantees or explain technical implementation details.
+* Do not use any Markdown formatting in your responses. Only sentences 
 
 ### Escalation Rule
 
@@ -90,9 +93,9 @@ For demos, custom requirements, or AI Voice Agent pricing, direct users to conta
 
 ### Contact
 
-* **WhatsApp:** +91-8097137041
-* **Email:** [info@phyllon.tech](mailto:info@phyllon.tech)
-* **Website:** [https://phyllon.tech](https://phyllon.tech)`
+* **WhatsApp:** wa.me/918097137041
+* **Email:** info@phyllon.tech
+* **Website:** https://phyllon.tech`
           },
           ...messages
         ],

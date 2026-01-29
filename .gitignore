@@ -1,3 +1,5 @@
+ignore/
+
 # Environment variables
 .env
 .env.local

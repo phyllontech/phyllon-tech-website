@@ -1,0 +1,26 @@
+{
+  "name": "Phyllon Tech",
+  "short_name": "Phyllon Tech",
+  "description": "AI-powered business automation company offering website development, WhatsApp AI receptionists, custom dashboards, and voice agents.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2d85cd",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "en"
+}

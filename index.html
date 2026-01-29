@@ -277,51 +277,108 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "ProfessionalService",
   "name": "Phyllon Tech",
+  "alternateName": "Phyllon Tech - Digital Solutions for Modern Businesses",
   "description": "AI-powered business automation company offering website development, WhatsApp AI receptionists, custom dashboards, and voice agents.",
   "url": "https://phyllon.tech",
-  "logo": "images/phyllon_logo_1500x1500.png",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://phyllon.tech/images/phyllon_logo_1500x1500.png",
+    "width": 1500,
+    "height": 1500
+  },
+  "image": "https://phyllon.tech/images/phyllon_logo_1500x1500.png",
+  "foundingDate": "2026",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Mumbai"
+    },
+    {
+      "@type": "State",
+      "name": "Maharashtra"
+    },
+    {
+      "@type": "Country",
+      "name": "India"
+    }
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Phyllon Tech Team",
+    "jobTitle": "Digital Solutions Experts",
+    "knowsAbout": [
+      "AI Development",
+      "Web Development",
+      "Business Automation",
+      "Customer Experience"
+    ]
+  },
+  "serviceType": [
+    "Website Development",
+    "AI Chatbot Development",
+    "Business Automation",
+    "Custom Dashboard Creation",
+    "Voice Agent Development"
+  ],
+  "providerType": "Business",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+91-8097137041",
     "contactType": "customer service",
-    "url": "https://wa.me/918097137041",
-    "email": "info@phyllon.tech"
+    "areaServed": "IN",
+    "availableLanguage": ["English", "Hindi"]
   },
-  "sameAs": [
-    "https://www.instagram.com/phyllon.tech.official/"
+  "email": "info@phyllon.tech",
+  "knowsAbout": [
+    "AI Chatbots",
+    "Business Automation",
+    "Web Development",
+    "WhatsApp Integration",
+    "Voice Agents",
+    "Custom Dashboards",
+    "Lead Generation",
+    "24/7 Customer Support"
   ],
-  "hasOfferCatalog": {
+  "sameAs": [
+    "https://www.instagram.com/phyllon.tech.official/",
+    "https://phyllon.tech"
+  ],
+  "offers": {
     "@type": "OfferCatalog",
-    "name": "Business Automation Services",
+    "name": "Digital Business Solutions",
     "itemListElement": [
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Business Website Development"
+          "name": "Business Website Development",
+          "description": "Professional websites designed to grow your business with responsive layouts and SEO optimization."
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "WhatsApp AI Receptionist"
+          "name": "WhatsApp AI Receptionist",
+          "description": "Automated WhatsApp chatbot that handles customer inquiries 24/7, qualifying leads and providing instant responses."
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Custom Business Dashboard"
+          "name": "Custom Business Dashboard",
+          "description": "Tailored dashboards to visualize your business metrics, automate reporting, and streamline operations."
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "AI Voice Agent"
+          "name": "AI Voice Agent",
+          "description": "Intelligent voice assistants that handle phone calls, schedule appointments, and provide customer support."
         }
       }
     ]
@@ -622,7 +679,7 @@
               <img src="images/phyllon_logo_text_192x192.png" alt="Phyllon Tech Text" class="h-[4rem] w-[4.5rem]">
             </div>
             <p class="text-center text-xs leading-5 text-gray-500 md:text-left">
-              © 2025 Phyllon Tech. All rights reserved.
+              © <span id="currentYear">2026</span> Phyllon Tech. All rights reserved.
             </p>
             <p class="text-center text-xs leading-5 text-gray-500 md:text-left mt-1">
               info@phyllon.tech
@@ -947,6 +1004,14 @@
         mainNav.classList.add('hidden');
         menuIcon.textContent = 'menu';
       });
+    });
+
+    // Update the current year in the footer
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentYearElement = document.getElementById('currentYear');
+      if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+      }
     });
   </script>
 

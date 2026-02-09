@@ -220,5 +220,25 @@ function generateCommonHeadElements(options = {}) {
 ${generateMetaTags(options.meta || {})}
 ${generateFavicons()}
 ${generateFontLinks()}
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="ai-assistant.css">
 ${generateStructuredData(options.schema || {})}`;
+}
+
+/**
+ * Injects head elements into the current document
+ * @param {Object} options - Options for generating head elements
+ */
+function injectHeadElements(options = {}) {
+  const head = document.head || document.getElementsByTagName('head')[0];
+  const headHTML = generateCommonHeadElements(options);
+
+  // Create a temporary element to parse the HTML string
+  const temp = document.createElement('div');
+  temp.innerHTML = headHTML;
+
+  // Append each child element to the head
+  while(temp.firstChild) {
+    head.appendChild(temp.firstChild);
+  }
 }

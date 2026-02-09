@@ -40,6 +40,3 @@ tailwind.config = {
     },
   },
 };
-
-// Optional: Log initialization for debugging purposes
-console.log("Tailwind configuration loaded:", tailwind.config);

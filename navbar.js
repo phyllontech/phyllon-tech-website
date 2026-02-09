@@ -18,7 +18,7 @@ class Navbar {
     }
 
     container.innerHTML = `
-      <header class="sticky top-0 z-50 w-full border-b border-[#e9eef2] dark:border-gray-800 bg-white/90 dark:bg-[#121a20]/90 backdrop-blur-md px-6 py-4">
+      <header class="w-full border-b border-[#e9eef2] dark:border-gray-800 bg-white/90 dark:bg-[#121a20]/90 backdrop-blur-md px-6 py-4 shadow-sm">
         <div class="mx-auto flex max-w-7xl items-center justify-between">
           <a href="" class="block">
             <div class="flex items-center gap-1">

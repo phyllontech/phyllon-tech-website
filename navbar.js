@@ -31,7 +31,7 @@ class Navbar {
             id="main-nav">
             <a class="text-sm font-medium hover:text-primary transition-colors block py-2 md:py-0"
               href="#services">Services</a>
-            <a class="text-sm font-medium hover:text-primary transition-colors block py-2 md:py-0"
+            <a class="hidden text-sm font-medium hover:text-primary transition-colors block py-2 md:py-0"
               href="#pricing">Pricing</a>
             <a class="text-sm font-medium hover:text-primary transition-colors block py-2 md:py-0"
               href="#contact">Contact</a>

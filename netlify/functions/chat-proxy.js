@@ -13,13 +13,26 @@ async function getPricingData() {
   }
 }
 
+async function getServicesData() {
+  try {
+    const response = await fetch(`${process.env.URL}/.netlify/functions/services`);
+    if (!response.ok) {
+      throw new Error('Services API request failed');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching services data:', error);
+    return null;
+  }
+}
+
 function generatePricingPrompt(pricingData) {
   if (!pricingData) {
     return "Pricing information currently unavailable. Please contact Phyllon Tech directly for current pricing.";
   }
 
   let prompt = "**Services & Pricing**\n\n";
-  
+
   prompt += "**Individual Services:**\n";
   pricingData.individualServices.forEach(service => {
     if (service.pricing) {
@@ -48,6 +61,22 @@ function generatePricingPrompt(pricingData) {
   return prompt;
 }
 
+function generateServicesPrompt(servicesData) {
+  if (!servicesData || !servicesData.services) {
+    return "Services information currently unavailable. Please contact Phyllon Tech directly for information about our services.";
+  }
+
+  let prompt = "**Our Services**\n\n";
+
+  servicesData.services.forEach(service => {
+    prompt += `* **${service.title}:** ${service.description}\n`;
+    prompt += `  Features: ${service.features.join("; ")}\n`;
+    prompt += `  Outcome: ${service.outcome}\n\n`;
+  });
+
+  return prompt;
+}
+
 exports.handler = async (event) => {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -57,7 +86,8 @@ exports.handler = async (event) => {
   try {
     const { messages } = JSON.parse(event.body);
     const pricingData = await getPricingData();
-    
+    const servicesData = await getServicesData();
+
     const response = await fetch('https://api.deepinfra.com/v1/openai/chat/completions', {
       method: 'POST',
       headers: {
@@ -73,7 +103,7 @@ exports.handler = async (event) => {
 
 You are the official AI assistant of **Phyllon Tech**, providing AI-powered business automation and web development solutions.
 
-${generatePricingPrompt(pricingData)}
+${generateServicesPrompt(servicesData)}
 
 ### Key Benefits
 
@@ -81,15 +111,10 @@ Fast delivery. Custom solutions. Ongoing support. 24/7 automation.
 
 ### Response Rules
 
-* Keep responses **short and precise** (1–4 sentences).
-* Provide pricing information when asked about specific services.
-* Focus on business outcomes: automation, time savings, and lead generation.
-* Do not provide guarantees or explain technical implementation details.
-* Do not use any Markdown formatting in your responses. Only sentences 
-
-### Escalation Rule
-
-For demos, custom requirements, or AI Voice Agent pricing, direct users to contact Phyllon Tech.
+* Keep responses **short and precise** (1-4 sentences).
+* Do not provide guarantees and pricing information.
+* Do not explain technical implementation details.
+* Respond only in either sentences or paragraphs.
 
 ### Contact
 
@@ -109,7 +134,7 @@ For demos, custom requirements, or AI Voice Agent pricing, direct users to conta
     }
 
     const data = await response.json();
-    
+
     return {
       statusCode: 200,
       headers: {

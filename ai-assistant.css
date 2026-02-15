@@ -15,9 +15,10 @@
     transform: translateY(-4px);
     }
 }
+
 .chat-messages {
     scrollbar-width: thin;
-    scrollbar-color: #2d85cd transparent;
+    scrollbar-color: #777 transparent;
 }
 .chat-messages::-webkit-scrollbar {
     width: 6px;

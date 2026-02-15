@@ -70,15 +70,13 @@ class AIAssistant {
       <!-- Chat Modal -->
       <div
         id="chatModal"
-        class="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[70vh] sm:h-[500px] max-h-[600px] bg-white dark:bg-dark rounded-xl shadow-2xl z-50 hidden flex-col overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 transform scale-95 opacity-0"
+        class="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 w-[calc(100vw-2rem)] sm:w-[42rem] h-[70vh] sm:h-[544px] max-h-[80vh] bg-white dark:bg-dark rounded-xl shadow-[0_8px_25px_6px_rgba(0,0,0,0.6)] z-50 hidden flex-col overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 transform scale-95 opacity-0"
       >
         <!-- Chat Header -->
-        <div class="bg-primary text-white p-4 flex items-center justify-between shrink-0">
+        <div class="bg-[#121212] dark:bg-black text-white p-4 flex items-center justify-between shrink-0">
             <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
+            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+                <img src="/images/phyllon_logo_192x192.png" alt="Phyllon Logo" class="w-9 h-9 object-contain">
             </div>
             <div>
                 <h3 class="font-display font-semibold">AI Assistant</h3>
@@ -104,10 +102,8 @@ class AIAssistant {
         <!-- Typing Indicator -->
         <div id="typingIndicator" class="hidden px-4 py-2 bg-gray-50 dark:bg-background-dark">
             <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center">
-                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
+            <div class="w-8 h-8 bg-white/10 dark:bg-black/20 rounded-full flex items-center justify-center">
+                <img src="/images/phyllon_logo_192x192.png" alt="Phyllon Logo" class="w-6 h-6 object-contain">
             </div>
             <div class="bg-white dark:bg-dark px-4 py-2 rounded-xl rounded-bl-none shadow-sm">
                 <div class="typing-indicator flex space-x-1">
@@ -120,26 +116,25 @@ class AIAssistant {
         </div>
 
         <!-- Chat Input -->
-        <div class="p-4 bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-700 shrink-0">
-            <form id="chatForm" class="flex items-center space-x-2">
-            <input
-                type="text"
-                id="messageInput"
-                placeholder="Type your message..."
-                class="flex-1 px-4 py-2 bg-gray-100 dark:bg-background-dark text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 rounded-lg border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                autocomplete="off"
-            >
-            <button
-                type="submit"
-                id="sendButton"
-                class="p-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Send message"
-            >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="p-3 sm:p-4 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700 shrink-0">
+          <form id="chatForm" class="flex items-center gap-2">
+            
+            <input type="text" id="messageInput" placeholder="Type your message..." class="flex-1 min-w-0 px-3 py-2 sm:px-4 sm:py-2.5
+                    text-sm sm:text-base
+                    bg-gray-100 dark:bg-background-dark 
+                    text-gray-900 dark:text-white
+                    placeholder-gray-500 dark:placeholder-gray-400
+                    rounded-lg border border-gray-200 dark:border-gray-600
+                    focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
+                    transition-all" autocomplete="off">
+
+            <button type="submit" id="sendButton" class="flex-shrink-0 p-2.5 sm:p-3 bg-primary/50 hover:bg-primary/90 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Send message">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                </svg>
+              </svg>
             </button>
-            </form>
+
+          </form>
         </div>
       </div>
     `;
@@ -251,8 +246,8 @@ class AIAssistant {
         return `
             <div class="flex justify-end">
             <div class="max-w-[80%]">
-                <div class="bg-primary text-white px-4 py-2 rounded-xl rounded-br-none shadow-sm">
-                <p class="text-sm">${this.escapeHTML(message.content)}</p>
+                <div class="bg-primary dark:bg-primary/20 text-white px-4 py-2 rounded-xl rounded-br-none shadow-sm">
+                <div class="text-sm">${this.escapeHTML(message.content)}</div>
                 </div>
                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">${time}</p>
             </div>
@@ -261,14 +256,13 @@ class AIAssistant {
       } else {
         return `
             <div class="flex items-start space-x-2">
-            <div class="w-8 h-8 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
+            <div class="w-8 h-8 bg-black/10 dark:bg-black/20 rounded-full flex items-center justify-center shrink-0">
+                <img src="/images/phyllon_logo_192x192.png" alt="Phyllon Logo" class="w-6 h-6 object-contain">
             </div>
             <div class="max-w-[80%]">
-                <div class="bg-white dark:bg-dark px-4 py-2 rounded-xl rounded-bl-none shadow-sm border border-gray-100 dark:border-gray-700">
-                <p class="text-sm text-gray-800 dark:text-gray-200">${this.escapeHTML(message.content)}</p>
+                <div class="bg-white dark:bg-black/20 px-4 py-2 rounded-xl rounded-tl-none shadow-sm">
+                <!--  border border-gray-100 dark:border-gray-700 -->
+                <div class="text-sm text-gray-800 dark:text-gray-200">${this.convertMarkdownToHTML(message.content)}</div>
                 </div>
                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">${time}</p>
             </div>
@@ -291,6 +285,57 @@ class AIAssistant {
       const div = document.createElement('div');
       div.textContent = str;
       return div.innerHTML;
+  }
+
+  // Convert markdown to HTML for better readability
+  convertMarkdownToHTML(text) {
+      if (!text) return '';
+      
+      // Process markdown elements in order of complexity
+      // 1. Headers (### header -> <h3>)
+      text = text.replace(/^### (.*$)/gm, '<h3 class="font-semibold mt-4 mb-2 text-gray-800 dark:text-gray-200">$1</h3>');
+      text = text.replace(/^## (.*$)/gm, '<h2 class="font-bold mt-4 mb-2 text-gray-800 dark:text-gray-200">$1</h2>');
+      text = text.replace(/^# (.*$)/gm, '<h1 class="font-bold text-lg mt-4 mb-2 text-gray-800 dark:text-gray-200">$1</h1>');
+      
+      // 2. Bold (**text** -> <strong>)
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      
+      // 3. Italic (*text* -> <em>)
+      text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      
+      // 4. Code blocks (```lang\ncode\n```)
+      text = text.replace(/```(\w*)\n([\s\S]*?)\n```/g, '<pre class="bg-gray-100 dark:bg-gray-800 p-3 rounded-md overflow-x-auto my-2"><code class="text-sm">$2</code></pre>');
+      
+      // 5. Inline code (`code` -> <code>)
+      text = text.replace(/`(.*?)`/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>');
+      
+      // 6. Links ([text](url) -> <a>)
+      text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">$1</a>');
+      
+      // 7. Unordered lists (- item -> <li>)
+      text = text.replace(/^- (.*$)/gm, '<li class="ml-4 list-disc list-inside">$1</li>');
+      
+      // 8. Ordered lists (1. item -> <li>)
+      text = text.replace(/^\d+\. (.*$)/gm, '<li class="ml-4 list-decimal list-inside">$1</li>');
+      
+      // 9. Separate paragraphs (double newline -> <p>)
+      text = text.replace(/\n\n/g, '</p><p class="mb-2">');
+      
+      // 10. Line breaks (single newline -> <br>)
+      text = text.replace(/\n/g, '<br>');
+      
+      // Wrap in paragraph tags and clean up
+      text = `<p class="mb-2">${text}</p>`;
+      
+      // Clean up extra paragraph tags around list items
+      text = text.replace(/<\/p><li/g, '<li');
+      text = text.replace(/<\/li><p class="mb-2">/g, '</li>');
+      
+      // Wrap lists in ul/ol tags
+      text = text.replace(/(<li class="ml-4 list-disc list-inside">.*?<\/li>)/gs, '<ul class="my-2">$1</ul>');
+      text = text.replace(/(<li class="ml-4 list-decimal list-inside">.*?<\/li>)/gs, '<ol class="my-2">$1</ol>');
+      
+      return text;
   }
 
   // Scroll to bottom

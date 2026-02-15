@@ -69,9 +69,9 @@ class Navbar {
 
     if (themeToggle && themeIcon) {
       themeToggle.addEventListener('click', () => {
-        const currentTheme = html.className;
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        html.className = newTheme;
+        const isDark = html.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+        html.classList.toggle('dark', newTheme === 'dark');
         themeIcon.textContent = newTheme === 'dark' ? 'light_mode' : 'dark_mode';
         localStorage.setItem('theme', newTheme);
       });
@@ -104,7 +104,7 @@ class Navbar {
     const html = document.documentElement;
 
     const savedTheme = localStorage.getItem('theme') || 'light';
-    html.className = savedTheme;
+    html.classList.toggle('dark', savedTheme === 'dark');
 
     if (themeIcon) {
       themeIcon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
